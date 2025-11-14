@@ -33,11 +33,11 @@
 </head>
 <body>
 
-// iPhone fix — load voices before using them
-speechSynthesis.onvoiceschanged = () => {
+
+// iPhone / Safari fix — forces voices to load before use
+speechSynthesis.onvoiceschanged = function () {
     speechSynthesis.getVoices();
 };
-    
 
 <h1>Spelling Game</h1>
 
