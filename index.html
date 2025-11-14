@@ -171,7 +171,7 @@ function startGame() {
 // --------------------------------------------------------
 // NEXT WORD
 // --------------------------------------------------------
-function nextWord() {
+    function nextWord() {
     if (roundCount >= 20) {
         alert(`Round complete! Final score: ${score} / 20`);
         document.getElementById("gameBox").style.display = "none";
@@ -184,19 +184,23 @@ function nextWord() {
     // Pick a random word from the chosen range
     currentWord = activeList[Math.floor(Math.random() * activeList.length)];
 
-    speakWord();
+    // ❗ STOP auto-playing speech on iPhone
+    // User must tap the “Hear Word” button
+    document.getElementById("feedback").innerHTML = "Tap the 🔊 button to hear the word.";
 
     document.getElementById("playerInput").value = "";
-    document.getElementById("feedback").innerHTML = "";
 }
 
-// --------------------------------------------------------
-// SPEAK WORD
-// --------------------------------------------------------
 function speakWord() {
+    // ensures iPhone loads voices before speaking
     const u = new SpeechSynthesisUtterance(currentWord);
     u.rate = 0.9;
-    speechSynthesis.speak(u);
+
+    // iPhone sometimes needs slight delay
+    setTimeout(() => {
+        speechSynthesis.cancel(); // reset any queued speech
+        speechSynthesis.speak(u);
+    }, 200);
 }
 
 // --------------------------------------------------------
