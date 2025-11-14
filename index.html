@@ -33,6 +33,12 @@
 </head>
 <body>
 
+// iPhone fix — load voices before using them
+speechSynthesis.onvoiceschanged = () => {
+    speechSynthesis.getVoices();
+};
+    
+
 <h1>Spelling Game</h1>
 
 <h3>Select Word Range</h3>
